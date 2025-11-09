@@ -9,16 +9,22 @@ export interface User {
 export interface NodeData {
   id: string;
   name: string;
+  clusterId?: number;
+  type?: 'statement' | 'post';
+  post?: Post;
 }
 
 export interface ExtendedNodeData extends NodeData {
   color: string;
-  argument: Argument;
+  argument?: Argument;
+  post?: Post;
 }
 
 export interface LinkData {
   source: NodeData;
   target: NodeData;
+  type?: 'similarity' | 'post-statement';
+  voteType?: 'agree' | 'disagree' | 'unclear';
 }
 
 export interface ForceGraphData {
@@ -27,6 +33,13 @@ export interface ForceGraphData {
 }
 
 // Core data types
+export interface Post {
+  uri: string;
+  url: string;
+  text?: string;
+  authorId?: string;
+}
+
 export interface Argument {
   id: string;
   graphId: string;
@@ -36,6 +49,7 @@ export interface Argument {
   reactionCounts?: ReactionCounts;
   userReaction?: UserReaction;
   score?: Score;
+  sourcePosts?: Post[];
 }
 
 export interface ReactionCounts {
